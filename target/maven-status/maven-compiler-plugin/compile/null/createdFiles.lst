@@ -1,6 +1,2 @@
-br\com\orbital\entities\Endereco.class
-br\com\orbital\dao\EnderecoDao.class
-br\com\orbital\bo\EnderecoBO.class
 br\com\orbital\CorsFilter.class
 br\com\orbital\conexoes\ConexaoFactory.class
-br\com\orbital\EnderecoResource.class

@@ -1,7 +1,7 @@
-C:\Users\10 PRÓ\Desktop\Java GS\orbital\src\main\java\br\com\orbital\bo\EnderecoBO.java
+C:\Users\10 PRÓ\Desktop\Java GS\orbital\src\main\java\br\com\orbital\bo\ContatoBO.java
 C:\Users\10 PRÓ\Desktop\Java GS\orbital\src\main\java\br\com\orbital\conexoes\ConexaoFactory.java
+C:\Users\10 PRÓ\Desktop\Java GS\orbital\src\main\java\br\com\orbital\ContatoResource.java
 C:\Users\10 PRÓ\Desktop\Java GS\orbital\src\main\java\br\com\orbital\CorsFilter.java
-C:\Users\10 PRÓ\Desktop\Java GS\orbital\src\main\java\br\com\orbital\dao\EnderecoDao.java
-C:\Users\10 PRÓ\Desktop\Java GS\orbital\src\main\java\br\com\orbital\EnderecoResource.java
-C:\Users\10 PRÓ\Desktop\Java GS\orbital\src\main\java\br\com\orbital\entities\Endereco.java
+C:\Users\10 PRÓ\Desktop\Java GS\orbital\src\main\java\br\com\orbital\dao\ContatoDao.java
+C:\Users\10 PRÓ\Desktop\Java GS\orbital\src\main\java\br\com\orbital\entities\Contato.java
 C:\Users\10 PRÓ\Desktop\Java GS\orbital\src\main\java\br\com\orbital\GreetingResource.java
