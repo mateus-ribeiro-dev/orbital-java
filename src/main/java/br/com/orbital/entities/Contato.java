@@ -67,4 +67,6 @@ public class Contato {
     public void setContatoId(Long contatoId) {
         this.contatoId = contatoId;
     }
+
+
 }

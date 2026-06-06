@@ -1,2 +1,8 @@
+br\com\orbital\entities\Satelite.class
+br\com\orbital\bo\SateliteBO.class
+br\com\orbital\entities\Conjuncao.class
+br\com\orbital\SateliteResource.class
 br\com\orbital\CorsFilter.class
+br\com\orbital\dao\SateliteDao.class
+br\com\orbital\dao\ConjuncaoDao.class
 br\com\orbital\conexoes\ConexaoFactory.class
