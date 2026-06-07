@@ -171,4 +171,61 @@ public class SateliteDao {
 
         return lista;
     }
+
+    // SELECT por noradId — usado pelo front no GET /satelites/:noradId
+    public Satelite buscarPorNoradId(String noradId) throws SQLException {
+
+        Satelite satelite = null;
+
+        PreparedStatement stmt = minhaConexao.prepareStatement(
+                "SELECT * FROM satelite WHERE noradId = ?");
+
+        stmt.setString(1, noradId);
+
+        ResultSet rs = stmt.executeQuery();
+
+        if (rs.next()) {
+
+            satelite = new Satelite();
+
+            satelite.setId(rs.getLong(1));
+            satelite.setNomeSatelite(rs.getString(2));
+            satelite.setNoradId(rs.getString(3));
+            satelite.setCosparId(rs.getString(4));
+            satelite.setOrbita(rs.getString(5));
+            satelite.setAltitude(rs.getDouble(6));
+            satelite.setCombustivel(rs.getDouble(7));
+            satelite.setInclinacao(rs.getDouble(8));
+            satelite.setProximaJanela(rs.getString(9));
+            satelite.setProbColisao(rs.getDouble(10));
+            satelite.setDeltaV(rs.getDouble(11));
+            satelite.setStatusRisco(rs.getString(12));
+        }
+
+        rs.close();
+        stmt.close();
+        minhaConexao.close();
+
+        return satelite;
+    }
+
+    // UPDATE PARCIAL — atualiza só os campos que o front manda no PUT
+    public String atualizarParcial(String noradId, String nome, String cosparId,
+                                   String orbita, double altitude) throws SQLException {
+        PreparedStatement stmt = minhaConexao.prepareStatement(
+                "UPDATE satelite SET nome_satelite = ?, cosparId = ?, orbita = ?, altitude = ? " +
+                        "WHERE noradId = ?");
+
+        stmt.setString(1, nome);
+        stmt.setString(2, cosparId);
+        stmt.setString(3, orbita);
+        stmt.setDouble(4, altitude);
+        stmt.setString(5, noradId);
+
+        stmt.executeUpdate();
+        stmt.close();
+        minhaConexao.close();
+
+        return "Satélite atualizado com sucesso!";
+    }
 }

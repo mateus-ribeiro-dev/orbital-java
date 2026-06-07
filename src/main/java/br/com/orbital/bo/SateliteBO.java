@@ -68,4 +68,19 @@ public class SateliteBO {
         sateliteDao = new SateliteDao();
         return sateliteDao.listarTodos();
     }
+
+    // buscar por noradId — chamado pelo Resource no GET /satelites/:noradId
+    public Satelite buscarPorNoradId(String noradId) throws SQLException, ClassNotFoundException {
+        sateliteDao = new SateliteDao();
+        return sateliteDao.buscarPorNoradId(noradId);
+    }
+
+    // atualizar parcial — chamado pelo Resource no PUT /satelites/:noradId
+// recebe só os campos que o front envia: nome, cosparId, orbita, altitude
+    public void atualizarParcialBo(String noradId, String nome, String cosparId,
+                                   String orbita, double altitude)
+            throws SQLException, ClassNotFoundException {
+        sateliteDao = new SateliteDao();
+        sateliteDao.atualizarParcial(noradId, nome, cosparId, orbita, altitude);
+    }
 }

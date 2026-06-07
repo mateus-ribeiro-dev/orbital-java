@@ -71,4 +71,12 @@ public class SateliteResource {
         sateliteBO.deletarBo(id);
         return Response.ok().build();
     }
+
+    @GET
+    @Path("/{noradId}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Satelite buscarPorNoradId(@PathParam("noradId") String noradId)
+            throws ClassNotFoundException, SQLException {
+        return sateliteBO.buscarPorNoradId(noradId);
+    }
 }
