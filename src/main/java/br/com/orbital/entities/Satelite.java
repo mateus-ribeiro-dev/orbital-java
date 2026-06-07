@@ -1,8 +1,15 @@
 package br.com.orbital.entities;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Satelite {
     private Long id;
+
+    // @JsonProperty garante que o Jackson lê e escreve o campo
+    // com exatamente esse nome no JSON, independente do getter/setter
+    @JsonProperty("nomeSatelite")
     private String nomeSatelite;
+
     private String noradId;
     private String cosparId;
     private String orbita;
@@ -31,99 +38,39 @@ public class Satelite {
         this.statusRisco = statusRisco;
     }
 
-    public Long getId() {
-        return id;
-    }
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public String getNomeSatelite() { return nomeSatelite; }
+    public void setNomeSatelite(String nomeSatelite) { this.nomeSatelite = nomeSatelite; }
 
-    public String getNomeSatelite() {
-        return nomeSatelite;
-    }
+    public String getNoradId() { return noradId; }
+    public void setNoradId(String noradId) { this.noradId = noradId; }
 
-    public void setNomeSatelite(String nomeSatelite) {
-        this.nomeSatelite = nomeSatelite;
-    }
+    public String getCosparId() { return cosparId; }
+    public void setCosparId(String cosparId) { this.cosparId = cosparId; }
 
-    public String getNoradId() {
-        return noradId;
-    }
+    public String getOrbita() { return orbita; }
+    public void setOrbita(String orbita) { this.orbita = orbita; }
 
-    public void setNoradId(String noradId) {
-        this.noradId = noradId;
-    }
+    public double getAltitude() { return altitude; }
+    public void setAltitude(double altitude) { this.altitude = altitude; }
 
-    public String getCosparId() {
-        return cosparId;
-    }
+    public double getCombustivel() { return combustivel; }
+    public void setCombustivel(double combustivel) { this.combustivel = combustivel; }
 
-    public void setCosparId(String cosparId) {
-        this.cosparId = cosparId;
-    }
+    public double getInclinacao() { return inclinacao; }
+    public void setInclinacao(double inclinacao) { this.inclinacao = inclinacao; }
 
-    public String getOrbita() {
-        return orbita;
-    }
+    public String getProximaJanela() { return proximaJanela; }
+    public void setProximaJanela(String proximaJanela) { this.proximaJanela = proximaJanela; }
 
-    public void setOrbita(String orbita) {
-        this.orbita = orbita;
-    }
+    public double getProbColisao() { return probColisao; }
+    public void setProbColisao(double probColisao) { this.probColisao = probColisao; }
 
-    public double getAltitude() {
-        return altitude;
-    }
+    public double getDeltaV() { return deltaV; }
+    public void setDeltaV(double deltaV) { this.deltaV = deltaV; }
 
-    public void setAltitude(double altitude) {
-        this.altitude = altitude;
-    }
-
-    public double getCombustivel() {
-        return combustivel;
-    }
-
-    public void setCombustivel(double combustivel) {
-        this.combustivel = combustivel;
-    }
-
-    public double getInclinacao() {
-        return inclinacao;
-    }
-
-    public void setInclinacao(double inclinacao) {
-        this.inclinacao = inclinacao;
-    }
-
-    public String getProximaJanela() {
-        return proximaJanela;
-    }
-
-    public void setProximaJanela(String proximaJanela) {
-        this.proximaJanela = proximaJanela;
-    }
-
-    public double getProbColisao() {
-        return probColisao;
-    }
-
-    public void setProbColisao(double probColisao) {
-        this.probColisao = probColisao;
-    }
-
-    public double getDeltaV() {
-        return deltaV;
-    }
-
-    public void setDeltaV(double deltaV) {
-        this.deltaV = deltaV;
-    }
-
-    public String getStatusRisco() {
-        return statusRisco;
-    }
-
-    public void setStatusRisco(String statusRisco) {
-        this.statusRisco = statusRisco;
-    }
+    public String getStatusRisco() { return statusRisco; }
+    public void setStatusRisco(String statusRisco) { this.statusRisco = statusRisco; }
 }
