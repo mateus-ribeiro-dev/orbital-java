@@ -7,12 +7,18 @@ import jakarta.ws.rs.core.*;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 @Path("/satelites")
 public class SateliteResource {
 
     private SateliteBO sateliteBO = new SateliteBO();
 
+    // POST /satelites
+    // Cadastra um satélite novo.
+    // Valida o noradId na tabela conjuncao antes de salvar.
+    // Se inválido: retorna 400. Se válido: preenche statusRisco e probColisao
+    // automaticamente com os dados do Space-Track e retorna 201.
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
@@ -25,7 +31,6 @@ public class SateliteResource {
             return Response.created(builder.build()).entity(salvo).build();
 
         } catch (IllegalArgumentException e) {
-            // NORAD ID inválido — retorna 400 com mensagem clara
             return Response.status(Response.Status.BAD_REQUEST)
                     .entity("{\"erro\": \"" + e.getMessage() + "\"}")
                     .build();
@@ -33,50 +38,64 @@ public class SateliteResource {
     }
 
     // GET /satelites
-    // Lista todos os satélites cadastrados
+    // Lista todos os satélites cadastrados no banco
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Satelite> listarTodos() throws ClassNotFoundException, SQLException {
+    public List<Satelite> listarTodos()
+            throws ClassNotFoundException, SQLException {
         return sateliteBO.listarTodosBo();
     }
 
-    // GET /satelites/{id}
-    // Busca um satélite pelo ID
+    // GET /satelites/{noradId}
+    // Busca um satélite pelo noradId — chamado pelo SateliteDetalhe.tsx
+    // O front passa o noradId na URL (ex: /satelites/28057)
     @GET
-    @Path("/{id}")
+    @Path("/{noradId}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Satelite buscarPorId(@PathParam("id") String id)
+    public Response buscarPorNoradId(@PathParam("noradId") String noradId)
             throws ClassNotFoundException, SQLException {
-        return sateliteBO.buscarPorId(id);
+        Satelite satelite = sateliteBO.buscarPorNoradId(noradId);
+        if (satelite == null) {
+            return Response.status(Response.Status.NOT_FOUND)
+                    .entity("{\"erro\": \"Satélite não encontrado\"}")
+                    .build();
+        }
+        return Response.ok(satelite).build();
     }
 
-    // PUT /satelites/{id}
-    // Atualiza um satélite
+    // PUT /satelites/{noradId}
+    // Atualiza parcialmente um satélite — chamado pelo ModalEditar no SateliteDetalhe.tsx
+    // O front manda apenas: { nome, cosparId, orbita, altitude }
     @PUT
-    @Path("/{id}")
+    @Path("/{noradId}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response atualizar(Satelite satelite, @PathParam("id") Long id)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response atualizarParcial(
+            Map<String, Object> body,
+            @PathParam("noradId") String noradId)
             throws ClassNotFoundException, SQLException {
-        satelite.setId(id);
-        sateliteBO.atualizarBo(satelite);
-        return Response.ok().build();
+
+        String nome     = (String) body.get("nome");
+        String cosparId = (String) body.getOrDefault("cosparId", "");
+        String orbita   = (String) body.getOrDefault("orbita", "LEO");
+        double altitude = body.get("altitude") != null
+                ? ((Number) body.get("altitude")).doubleValue()
+                : 0.0;
+
+        sateliteBO.atualizarParcialBo(noradId, nome, cosparId, orbita, altitude);
+
+        // busca o satélite atualizado para devolver ao front
+        Satelite atualizado = sateliteBO.buscarPorNoradId(noradId);
+        return Response.ok(atualizado).build();
     }
 
     // DELETE /satelites/{id}
-    // Remove um satélite
+    // Remove um satélite pelo id_satelite (número sequencial do banco)
     @DELETE
     @Path("/{id}")
     public Response deletar(@PathParam("id") String id)
             throws ClassNotFoundException, SQLException {
         sateliteBO.deletarBo(id);
         return Response.ok().build();
-    }
-
-    @GET
-    @Path("/{noradId}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Satelite buscarPorNoradId(@PathParam("noradId") String noradId)
-            throws ClassNotFoundException, SQLException {
-        return sateliteBO.buscarPorNoradId(noradId);
     }
 }
