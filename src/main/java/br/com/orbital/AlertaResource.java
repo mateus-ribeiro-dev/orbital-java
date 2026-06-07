@@ -14,11 +14,6 @@ public class AlertaResource {
 
     private AlertaBO alertaBO = new AlertaBO();
 
-    // GET /alertas
-    // Chamado pelo Alerta.tsx quando a página carrega e quando o usuário clica em "Atualizar"
-    // Busca os satélites com status_risco warn ou danger e retorna como lista de alertas
-    //
-    // Retorna: [{ id, sateliteNome, norad, nivel, descricao, probabilidade, distancia, tempo }]
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response listarAlertas() throws ClassNotFoundException, SQLException {
